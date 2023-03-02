@@ -24,11 +24,20 @@ game using different architectures and paradigms.
 The source code is organized in different sub-folders, code shared by
 all apps is in the `01_Common` folder. The command line app for macOS
 is in the `10_Commandline-App` folder, the basic MVC-based app in
-`20_Basic-App`, and the MVVM-based appp in `30_MVVM-App`.
+`20_Basic-App`, and the MVVM-based app in `30_MVVM-App`.
 
 Each of these folders has a sub-folder called `MatchGame`. To open the
 corresponding project open the project file `MatchGame.xcodeproj` in
 the corresponding sub-folder.
+
+For the app variant in `40_MVVM_FRP-App` additional dependencies must
+be installed. This is done using [CocoaPods](https://cocoapods.org):
+```bash
+pushd 40_MVVM_FRP-App ; pod install --repo-update ; popd
+```
+The workspace `MatchGame.xcworkspace` is created in the
+`40_MVVM_FRP-App/MatchGame/` folder. For this app variant that
+workspace must be used instead of the project file!
 
 ## License and Attribution
 
