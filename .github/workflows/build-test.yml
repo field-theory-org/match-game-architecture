@@ -1,0 +1,61 @@
+# Automation script file for the code related to the MVVM-FRP
+# architecture post on field-theory.org.
+#
+# This automation builds and tests the different apps discussed in the
+# related posts.
+#
+# (c) 2023 by Dr. Wolfram Schroers <wolfram.schroers@field-theory.org>
+---
+name: Build and test all apps
+on: [push]
+
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+
+  cli:
+    name: Build the command line app
+    runs-on: macos-latest
+    steps:
+      - name: Git checkout code
+        uses: actions/checkout@v3
+      - name: Run linter and build the project
+        run: |
+          set -o pipefail
+          swiftlint 10_Commandline-App/
+          xcodebuild -project 10_Commandline-App/Matchgame/Matchgame.xcodeproj -scheme Matchgame build | xcpretty -c
+
+  basic:
+    name: Build and test the iOS app based on the MVC pattern
+    runs-on: macos-latest
+    steps:
+      - name: Git checkout code
+        uses: actions/checkout@v3
+      - name: Run linter, build and test the project
+        run: |
+          set -o pipefail
+          swiftlint 20_Basic-App/
+          xcodebuild -project 20_Basic-App/MatchGame/MatchGame.xcodeproj -scheme MatchGame CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -resultBundlePath TestResults -destination "platform=iOS Simulator,OS=16.2,name=iPhone 14" build test | xcpretty -c || true
+
+      - uses: kishikawakatsumi/xcresulttool@v1
+        with:
+          path: TestResults.xcresult
+        if: success() || failure()
+
+  mvvm:
+    name: Build and test the iOS app based on the MVVM pattern
+    runs-on: macos-latest
+    steps:
+      - name: Git checkout code
+        uses: actions/checkout@v3
+      - name: Run linter, build and test the project
+        run: |
+          set -o pipefail
+          swiftlint 30_MVVM-App
+          xcodebuild -project 30_MVVM-App/MatchGame/MatchGame.xcodeproj -scheme MatchGame CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -resultBundlePath TestResults -destination "platform=iOS Simulator,OS=16.2,name=iPhone 14" build test | xcpretty -c
+      - uses: kishikawakatsumi/xcresulttool@v1
+        with:
+          path: TestResults.xcresult
+        if: success() || failure()
