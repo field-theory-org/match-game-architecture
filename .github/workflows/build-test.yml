@@ -59,3 +59,20 @@ jobs:
         with:
           path: TestResults.xcresult
         if: success() || failure()
+
+  mvvm-frp:
+    name: Build and test the iOS app based on the MVVM pattern with FRP
+    runs-on: macos-latest
+    steps:
+      - name: Git checkout code
+        uses: actions/checkout@v3
+      - name: Run linter, pre-build, build and test the project
+        run: |
+          set -o pipefail
+          pushd 40_MVVM_FRP-App/MatchGame ; pod install ; popd
+          swiftlint 40_MVVM_FRP-App
+          xcodebuild -workspace 40_MVVM_FRP-App/MatchGame/MatchGame.xcworkspace -scheme MatchGame CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -resultBundlePath TestResults -destination "platform=iOS Simulator,OS=16.2,name=iPhone 14" build test | xcpretty -c
+      - uses: kishikawakatsumi/xcresulttool@v1
+        with:
+          path: TestResults.xcresult
+        if: success() || failure()
