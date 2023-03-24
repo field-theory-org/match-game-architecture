@@ -90,7 +90,6 @@ jobs:
       - name: Run linter, pre-build, build and test the project
         run: |
           set -o pipefail
-          pushd 40_MVVM_FRP-App/MatchGame ; pod install ; popd
           swiftlint 40_MVVM_FRP-App
           xcodebuild -workspace 40_MVVM_FRP-App/MatchGame/MatchGame.xcworkspace -scheme MatchGame CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -resultBundlePath TestResults -destination "platform=iOS Simulator,OS=16.2,name=iPhone 14" build test | xcpretty -c
       - uses: kishikawakatsumi/xcresulttool@v1
