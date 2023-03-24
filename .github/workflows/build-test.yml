@@ -49,7 +49,7 @@ jobs:
   basic:
     name: Build and test the iOS app based on the MVC pattern
     runs-on: macos-latest
-    needs: [common-model, common-view]
+    needs: [common-model]
     steps:
       - name: Git checkout code
         uses: actions/checkout@v3
@@ -67,7 +67,7 @@ jobs:
   mvvm:
     name: Build and test the iOS app based on the MVVM pattern
     runs-on: macos-latest
-    needs: [common-model, common-view]
+    needs: [common-model]
     steps:
       - name: Git checkout code
         uses: actions/checkout@v3
