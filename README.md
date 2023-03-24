@@ -4,8 +4,10 @@
 
 This source code repository accompanies my blog posts on the MVVM
 (Model-View-View Model) architecture and the FRP (Functional Reactive
-Programming) paradigm. The first post is
-[on my blog](https://field-theory.org/posts/mvvm-frp-architectures-pt-1.html)
+Programming) paradigm. You can find the related posts on my blog:
+
+* [Part 1](https://field-theory.org/posts/mvvm-frp-architectures-pt-1.html),
+* [Modules](https://field-theory.org/posts/using-swift-modules.html).
 
 These files are an updated version of a presentation at the
 [Developer Week 2016](http://www.developer-week.de) conference, Nuremberg,
