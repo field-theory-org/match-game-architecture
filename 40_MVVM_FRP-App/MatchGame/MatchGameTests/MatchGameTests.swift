@@ -10,6 +10,7 @@ import XCTest
 import ReactiveSwift
 import ReactiveCocoa
 @testable import MatchGame
+import MatchModel
 
 /// Helper class to supply a data context.
 class TestHelper: CanSupplyDataContext {

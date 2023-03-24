@@ -9,6 +9,7 @@
 import UIKit
 import ReactiveSwift
 import ReactiveCocoa
+import MatchView
 
 /// The view controller of the first screen responsible for the game.
 class MainViewController: MVVMViewController {

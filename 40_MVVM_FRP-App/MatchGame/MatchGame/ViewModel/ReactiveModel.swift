@@ -9,6 +9,7 @@
 import Foundation
 import ReactiveSwift
 import ReactiveCocoa
+import MatchModel
 
 /// This class exports the API of the data model to ReactiveCocoa-style mutable properties.
 ///

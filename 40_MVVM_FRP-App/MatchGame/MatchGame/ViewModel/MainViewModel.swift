@@ -9,6 +9,7 @@
 import UIKit
 import ReactiveSwift
 import ReactiveCocoa
+import MatchModel
 
 /// View model corresponding to the "Main" game screen.
 class MainViewModel: NSObject, PresentDialog {
