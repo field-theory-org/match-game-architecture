@@ -1,6 +1,6 @@
 //
 //  MatchPileView.swift
-//  MatchGame
+//  MatchView
 //
 //  Created by Dr. Wolfram Schroers on 5/17/16.
 //  Copyright © 2016 Wolfram Schroers. All rights reserved.
@@ -9,7 +9,7 @@
 import UIKit
 
 /// The match pile on the screen.
-class MatchPileView: UIView {
+public class MatchPileView: UIView {
 
     /// Number of currently visible matches.
     fileprivate var visibleMatches: Int = 0
@@ -30,7 +30,7 @@ class MatchPileView: UIView {
     }
 
     /// Set a fixed number of matches. Abort animations if needed.
-    func setMatches(_ matchNumber: Int) {
+    public func setMatches(_ matchNumber: Int) {
         // Remove all currently visible/animating matches.
         let oldMatches = subviews
         for match in oldMatches {
@@ -68,7 +68,7 @@ class MatchPileView: UIView {
     }
 
     /// Remove a given number of matches with animation.
-    func removeMatches(_ matchNumber: Int) {
+    public func removeMatches(_ matchNumber: Int) {
         // All currently registered matches (including animated ones).
         let oldMatches = subviews
 

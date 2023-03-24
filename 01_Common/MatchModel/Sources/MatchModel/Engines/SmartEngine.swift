@@ -1,6 +1,6 @@
 //
 //  SmartEngine.swift
-//  Matchgame
+//  MatchModel
 //
 //  Created by Dr. Wolfram Schroers on 5/9/16.
 //  Copyright © 2016 Wolfram Schroers. All rights reserved.

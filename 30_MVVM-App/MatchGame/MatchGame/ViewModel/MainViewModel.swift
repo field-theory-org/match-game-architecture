@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MatchModel
 
 /// The view model let's the controller know that something must be done.
 protocol MainTakeAction: CanPresentDialog {
