@@ -15,9 +15,28 @@ concurrency:
 
 jobs:
 
+  common-linter:
+    name: Run the linter for the common infrastructure
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: swiftlint 01_Common/
+
+  common-model:
+    name: Build and test the common infrastructure for the model
+    runs-on: macos-latest
+    needs: [common-linter]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build and test
+        run: |
+          cd 01_Common/MatchModel ; swift test
+
   cli:
     name: Build the command line app
     runs-on: macos-latest
+    needs: [common-model]
     steps:
       - name: Git checkout code
         uses: actions/checkout@v3
@@ -25,11 +44,12 @@ jobs:
         run: |
           set -o pipefail
           swiftlint 10_Commandline-App/
-          xcodebuild -project 10_Commandline-App/Matchgame/Matchgame.xcodeproj -scheme Matchgame build | xcpretty -c
+          xcodebuild -workspace 10_Commandline-App/MatchGame/MatchGame.xcworkspace -scheme Matchgame clean build | xcpretty -c
 
   basic:
     name: Build and test the iOS app based on the MVC pattern
     runs-on: macos-latest
+    needs: [common-model, common-view]
     steps:
       - name: Git checkout code
         uses: actions/checkout@v3
@@ -37,7 +57,7 @@ jobs:
         run: |
           set -o pipefail
           swiftlint 20_Basic-App/
-          xcodebuild -project 20_Basic-App/MatchGame/MatchGame.xcodeproj -scheme MatchGame CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -resultBundlePath TestResults -destination "platform=iOS Simulator,OS=16.2,name=iPhone 14" build test | xcpretty -c || true
+          xcodebuild -project 20_Basic-App/MatchGame/MatchGame.xcodeproj -scheme MatchGame CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -resultBundlePath TestResults -destination "platform=iOS Simulator,OS=16.2,name=iPhone 14" build test | xcpretty -c
 
       - uses: kishikawakatsumi/xcresulttool@v1
         with:
@@ -47,6 +67,7 @@ jobs:
   mvvm:
     name: Build and test the iOS app based on the MVVM pattern
     runs-on: macos-latest
+    needs: [common-model, common-view]
     steps:
       - name: Git checkout code
         uses: actions/checkout@v3
@@ -59,3 +80,4 @@ jobs:
         with:
           path: TestResults.xcresult
         if: success() || failure()
+
