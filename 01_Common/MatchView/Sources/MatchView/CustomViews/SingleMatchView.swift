@@ -1,6 +1,6 @@
 //
 //  SingleMatchView.swift
-//  MatchGame
+//  MatchView
 //
 //  Created by Dr. Wolfram Schroers on 5/17/16.
 //  Copyright © 2016 Wolfram Schroers. All rights reserved.

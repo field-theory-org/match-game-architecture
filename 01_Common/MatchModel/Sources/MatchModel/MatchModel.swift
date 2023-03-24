@@ -1,6 +1,6 @@
 //
 //  MatchModel.swift
-//  Matchgame
+//  MatchModel
 //
 //  Created by Dr. Wolfram Schroers on 5/9/16.
 //  Copyright © 2016 Wolfram Schroers. All rights reserved.
@@ -9,7 +9,7 @@
 import Foundation
 
 /// The compound data model of the match game.
-class MatchModel {
+public class MatchModel {
 
     // MARK: Data types
 
@@ -18,7 +18,7 @@ class MatchModel {
     /// - Dumb: Always takes a single match.
     /// - Wild: Takes a random number of matches.
     /// - Smart: Perfect play, takes the optimal number of matches.
-    enum Strategy {
+    public enum Strategy {
         case dumb
         case wild
         case smart
@@ -27,14 +27,14 @@ class MatchModel {
     // MARK: Administrative
 
     /// Standard initializer.
-    init() {
+    public init() {
         engine = DumbEngine(myPile: pile)
     }
 
     // MARK: Game state
 
     /// Choose an engine based on the selected strategy.
-    var strategyType = Strategy.dumb {
+    public var strategyType = Strategy.dumb {
         willSet(newStrategy) {
             switch newStrategy {
             case .dumb:
@@ -48,7 +48,7 @@ class MatchModel {
     }
 
     /// The currently active strategy.
-    var strategy: Strategy {
+    public var strategy: Strategy {
         get {
             strategyType
         }
@@ -58,12 +58,12 @@ class MatchModel {
     }
 
     /// The current number of matches.
-    var matchCount: Int {
+    public var matchCount: Int {
         pile.count
     }
 
     /// The initial count of matches when restarting a game. Must always be larger than `removeMax`.
-    var initialCount: Int {
+    public var initialCount: Int {
         get {
             pile.initialCount
         }
@@ -79,7 +79,7 @@ class MatchModel {
 
     /// The maximum number of matches that can be removed each move.
     /// Must always be larger than 0 and smaller than `initialCount`.
-    var removeMax: Int {
+    public var removeMax: Int {
         get {
             pile.removeMax
         }
@@ -94,19 +94,19 @@ class MatchModel {
     }
 
     /// - returns: The current limit of matches the user can take in his move. Returns 0 on the computer's move.
-    func userLimit() -> Int {
+    public func userLimit() -> Int {
         (pile.rightToMove == .user) ? pile.limit() : 0
     }
 
     /// - returns: Whether the game is lost.
-    func isGameOver() -> Bool {
+    public func isGameOver() -> Bool {
         pile.isLost()
     }
 
     // MARK: Public methods to manipulate the game state
 
     /// Restart the game.
-    func restart() {
+    public func restart() {
         pile.rightToMove = .user
         pile.restart()
     }
@@ -114,7 +114,7 @@ class MatchModel {
     /// Compute and perform the computer move.
     ///
     /// - returns: The computer's move.
-    func performComputerMove() -> Int {
+    public func performComputerMove() -> Int {
         assert(pile.rightToMove == .computer,
                "This method must only be called when it's the computer's turn to move")
 
@@ -127,7 +127,7 @@ class MatchModel {
     /// Perform the user move.
     ///
     /// - Parameter move: The number of matches the user removes.
-    func performUserMove(_ move: Int) {
+    public func performUserMove(_ move: Int) {
         assert(move <= pile.limit(),
                "The user move is invalid and must be validated prior to calling this method")
         assert(pile.rightToMove == .user,
