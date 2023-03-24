@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MatchView
 
 /// The view controller of the first screen responsible for the game.
 class MainViewController: MVVMViewController, MainTakeAction {

@@ -1,17 +1,15 @@
 //
-//  MatchGameTests.swift
-//  MatchGameTests
+//  MatchModelTests.swift
+//  MatchModel
 //
-//  Created by Dr. Wolfram Schroers on 5/26/16.
-//  Copyright © 2016 Wolfram Schroers. All rights reserved.
+//  Created by Dr. Wolfram Schroers on 3/10/23.
+//  Copyright © 2023 Wolfram Schroers. All rights reserved.
 //
 
 import XCTest
-import MatchModel
-@testable import MatchGame
+@testable import MatchModel
 
-/// These are data model only tests.
-class MatchGameTests: XCTestCase {
+final class MatchModelTests: XCTestCase {
 
     var matchModel = MatchModel()
 
@@ -45,5 +43,4 @@ class MatchGameTests: XCTestCase {
         XCTAssertEqual(matchModel.performComputerMove(), 2)
         XCTAssertEqual(matchModel.matchCount, 9)
     }
-
 }

@@ -8,6 +8,7 @@
 
 import XCTest
 @testable import MatchGame
+import MatchModel
 
 /// These are data model only tests.
 class MatchGameTests: XCTestCase {

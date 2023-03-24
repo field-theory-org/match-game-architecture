@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MatchModel
 
 /// Controller for the game workflow.
 class MatchGameController {

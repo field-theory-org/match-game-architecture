@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import MatchModel
+import MatchView
 
 /// Accept changes to the data model settings.
 protocol CanAcceptSettings: AnyObject {
