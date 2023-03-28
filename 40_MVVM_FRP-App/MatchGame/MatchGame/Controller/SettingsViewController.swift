@@ -39,6 +39,9 @@ class SettingsViewController: MVVMViewController {
         // Set up response for dismissing the settings screen.
         let doneSubscriber = Signal<Void, Never>.Observer(value: { self.dismiss(animated: true, completion: nil) })
         viewModel.doneSignal.observe(doneSubscriber)
+
+        // Handle dialogs.
+        commonBindings(viewModel as? PresentDialog)
     }
 
     override func viewWillAppear(_ animated: Bool) {
