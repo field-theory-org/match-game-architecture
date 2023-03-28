@@ -1,0 +1,62 @@
+# Install dependencies for ReactiveCocoa/ReactiveSwift. This
+# installation is needed for the code related to the MVVM-FRP
+# architecture post on field-theory.org.
+#
+# (c) 2023 by Dr. Wolfram Schroers <wolfram.schroers@field-theory.org>
+
+# region - Declarations
+
+ENV['COCOAPODS_DISABLE_STATS'] = 'true'
+source 'https://github.com/CocoaPods/Specs.git'
+inhibit_all_warnings!
+
+platform :ios, '13.0'
+
+# endregion
+
+# region Dependency definition
+
+def reactive_swift
+  use_frameworks!
+
+  # Pods for MatchGame
+  pod 'ReactiveSwift', '7.1.1'
+  pod 'ReactiveCocoa', '12.0.0'
+end
+
+# endregion
+
+# region - Targets
+
+target 'MatchGame' do
+  reactive_swift
+end
+
+target 'MatchGameTests' do
+  reactive_swift
+end
+
+# endregion
+
+# region - Post install hook
+
+# Taken from
+# <https://mzeeshanid.medium.com/cocoapods-post-install-script-for-updating-deployment-target-3d2c61634253>
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+
+    target.build_configurations.each do |config|
+      deployment_target = config.build_settings['IPHONEOS_DEPLOYMENT_TARGET']
+      target_components = deployment_target.split
+      if target_components.length > 0
+        target_initial = target_components[0].to_i
+        if target_initial < 13
+          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = "13.0"
+        end
+      end
+    end
+
+  end
+end
+
+# endregion
